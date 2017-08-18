@@ -2,5 +2,9 @@
     {
         "merged": "E:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\res\\merged\\debug\\raw\\beep.ogg",
         "source": "E:\\workspaces-studio\\zxing-master\\android\\app\\src\\main\\res\\raw\\beep.ogg"
+    },
+    {
+        "merged": "E:\\workspaces-studio\\zxing-master\\ZxingZbar\\app\\build\\intermediates\\res\\merged\\debug\\raw\\beep.ogg",
+        "source": "E:\\workspaces-studio\\zxing-master\\ZxingZbar\\app\\src\\main\\res\\raw\\beep.ogg"
     }
 ]

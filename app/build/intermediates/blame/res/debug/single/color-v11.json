@@ -4,7 +4,15 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\33896453633aac72182b9b0c63ded2ba1e1b35f1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     },
     {
+        "merged": "E:\\workspaces-studio\\zxing-master\\ZxingZbar\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\33896453633aac72182b9b0c63ded2ba1e1b35f1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
         "merged": "E:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\33896453633aac72182b9b0c63ded2ba1e1b35f1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "E:\\workspaces-studio\\zxing-master\\ZxingZbar\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\33896453633aac72182b9b0c63ded2ba1e1b35f1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     }
 ]
