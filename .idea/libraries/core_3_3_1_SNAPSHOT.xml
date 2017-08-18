@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="core-3.3.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/core-3.3.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

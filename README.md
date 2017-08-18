@@ -49,17 +49,16 @@ Failed to execute goal org.apache.rat:apache-rat-plugin:0.12 这两个错误，�
 
 
 2. 修改CameraManager类 的getFramingRectInPreview方法，把  
-
-> 
-rect.left = rect.left * cameraResolution.x / screenResolution.x;
-rect.right = rect.right * cameraResolution.x / screenResolution.x;
-rect.top = rect.top * cameraResolution.y / screenResolution.y;
-rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
-改为：
-rect.left = rect.left * cameraResolution.y / screenResolution.x;
-rect.right = rect.right * cameraResolution.y / screenResolution.x;
-rect.top = rect.top * cameraResolution.x / screenResolution.y;
-rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
+ 
+    rect.left = rect.left * cameraResolution.x / screenResolution.x;
+    rect.right = rect.right * cameraResolution.x / screenResolution.x;
+    rect.top = rect.top * cameraResolution.y / screenResolution.y;
+    rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
+    改为：
+    rect.left = rect.left * cameraResolution.y / screenResolution.x;
+    rect.right = rect.right * cameraResolution.y / screenResolution.x;
+    rect.top = rect.top * cameraResolution.x / screenResolution.y;
+    rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
 
    
 
@@ -73,19 +72,19 @@ height = width;
 
 4. 到目前为此，竖屏显示没问题了， 但是解码失败，扫半天都不行，原因上面讲了需要将相机数据进行旋转：
 
-> 
-在DecodeHandler类的 decode方法中
-PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(data, width, height);
+
+    在DecodeHandler类的 decode方法中
+    PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(data, width, height);
 前增加
-byte[] rotatedData = new byte[data.length];
-for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++)
-        rotatedData[x * height + height - y - 1] = data[x + y * width];
-}
-int tmp = width;
-width = height;
-height = tmp;
-data = rotatedData;
+    byte[] rotatedData = new byte[data.length];
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++)
+          rotatedData[x * height + height - y - 1] = data[x + y * width];
+    }
+    int tmp = width;
+    width = height;
+    height = tmp;
+    data = rotatedData;
 
 
 **到目前为止，扫码是没有问题了， 但是速度非常慢，可能在好一点的手机上没有感觉，但是本人在一台在红米3手机上测试,每次执行完decode方法都是在1300ms左右**
