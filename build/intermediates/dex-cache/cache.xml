@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="E:\workspaces-studio\zxing-master\android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="740f49ca4c8ab5c63133652b921bf23071280a68">
+        <dex dex="E:\workspaces-studio\zxing-master\android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_fe2e143aa1ed289dc34c4be63a0e0cf5531938ef\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\workspaces-studio\zxing-master\android\app\libs\core-3.3.1-SNAPSHOT.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6908b048bef577111c25022b78fe5b330e7ee3cc">
+        <dex dex="E:\workspaces-studio\zxing-master\android\app\build\intermediates\transforms\dex\debug\folders\1000\2\core-3.3.1-SNAPSHOT_8c8e139bdac60e4f8a7499fe2140ba0c5e24e4b1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\workspaces-studio\zxing-master\android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="E:\workspaces-studio\zxing-master\android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5595f1fef8eac56e049c8bab338161786fb3bbc6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\workspaces-studio\zxing-master\android\app\libs\android-core-3.3.1-SNAPSHOT.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a69f32d4a877ecd461fc212ba41113a97c82124c">
+        <dex dex="E:\workspaces-studio\zxing-master\android\app\build\intermediates\transforms\dex\debug\folders\1000\2\android-core-3.3.1-SNAPSHOT_b7013c3c0afba8f4a2b81d1b402117d351a62fc9\classes.dex" />
+    </item>
+
+</items>

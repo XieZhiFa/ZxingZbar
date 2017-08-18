@@ -1,0 +1,7 @@
+#Fri Aug 18 10:51:16 CST 2017
+base.0=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_fe2e143aa1ed289dc34c4be63a0e0cf5531938ef
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_5595f1fef8eac56e049c8bab338161786fb3bbc6\\classes.dex
+base.1=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_5595f1fef8eac56e049c8bab338161786fb3bbc6
+file.0=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_fe2e143aa1ed289dc34c4be63a0e0cf5531938ef\\classes.dex

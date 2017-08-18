@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\share.xml",
+        "source": "E:\\workspaces-studio\\zxing-master\\android\\app\\src\\main\\res\\layout-land\\share.xml"
+    },
+    {
+        "merged": "E:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\encode.xml",
+        "source": "E:\\workspaces-studio\\zxing-master\\android\\app\\src\\main\\res\\layout-land\\encode.xml"
+    }
+]
