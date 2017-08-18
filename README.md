@@ -15,7 +15,7 @@ QQ 2227421573
 **其中最主要的原因是相机捕获的数据始终是横向的，即使你把预览框改成了竖向，但是数据依然是横向，因此需要将数据进行旋转，而zxing既然不支持横向扫条码（二维码就可以从四面去扫描），这个不得不吐槽zxing了，而旋转数据的代码在一台RedMi 3手机上测试发现既然用了600ms左右， 既然看了所有竖屏方案的文章都没有提及，知道慢的原因了就好办了看下面的步骤吧。**
 
 
-## （一） 编译zxing##
+## （一） 编译zxing ##
 我相信很多人下载了以后编译都会出现问题，zxing是用maven构建的项目， 那么编译需要用到maven。关于maven的下载安装配置环境变量等这里就不说了， 实在不会的就联系我吧，也可以直接用我编译好的包哈。
 
 1. 本人于2017-08-02下载Zxing的demo 3.3.1版本，发现项目是用maven构造的，编译花了一下午，报了几个错最后是修改了根目录下的pom.xml文件， 最终编译成功， 生成了apk文件及两个jar包。
@@ -43,12 +43,14 @@ Failed to execute goal org.apache.rat:apache-rat-plugin:0.12 这两个错误，�
 
 
 
-## （二） 优化Zxing##
+## （二） 优化Zxing  ##
 默认是横屏的， 这个实在是不能接受，不符合大家的习惯， 于是在zxing的lssuse中找到挺多大神给的方案，也在网上搜索半天，挨个试试以后，总结了一下，竖屏的方案主要修改地方为：
 1. 修改activity CaptureActivity 中 android:screenOrientation="portrait" 固定为竖屏。
 
 
-2. 修改CameraManager类 的getFramingRectInPreview方法，把     
+2. 修改CameraManager类 的getFramingRectInPreview方法，把  
+
+> 
 rect.left = rect.left * cameraResolution.x / screenResolution.x;
 rect.right = rect.right * cameraResolution.x / screenResolution.x;
 rect.top = rect.top * cameraResolution.y / screenResolution.y;
@@ -59,14 +61,19 @@ rect.right = rect.right * cameraResolution.y / screenResolution.x;
 rect.top = rect.top * cameraResolution.x / screenResolution.y;
 rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
 
+   
 
-3. 此时会发现扫描框并不是正方形，非常的高，于是再修改了 CameraManager类的getFramingRect()方法， 在 
+3. 此时会发现扫描框并不是正方形，非常的高，于是再修改了 
+
+CameraManager类的getFramingRect()方法， 在 
 int leftOffset = (screenResolution.x - width) / 2;
 这行代码前面增加了
 width = width + 50;
 height = width;
 
 4. 到目前为此，竖屏显示没问题了， 但是解码失败，扫半天都不行，原因上面讲了需要将相机数据进行旋转：
+
+> 
 在DecodeHandler类的 decode方法中
 PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(data, width, height);
 前增加
@@ -97,6 +104,7 @@ data = rotatedData;
 
 **zbar的解码代码为：**
 
+> 
 byte[] imageData = ...; //相机捕获的数据或图片数据
 Image barcode = new Image(size.width, size.height, "Y800");
 barcode.setData(imageData);
@@ -119,6 +127,7 @@ if (!TextUtils.isEmpty(qrCodeString)) {
 1. 知道zbar的解码过程以后就好办了， 直接到zxing的 DecodeHandler.java decode（）方法中增加代码:
 
 
+> 
 Image barcode = new Image(width, height, "Y800");
 barcode.setData(data);
 Rect rect = activity.getCameraManager().getFramingRectInPreview();
@@ -152,13 +161,11 @@ height = tmp;
 
 兼容模式就是用Zxing来解码， 而高速模式是用Zbar来解码。
 
-**已知几个问题:** 
+**已知几个问题: ** 
 1. 连接扫描的时候，需要使用广播进行。
 2. 扫码后播放声音默认是使用MediaPlayer，建议使用SoundPool， 因为连续扫码过快的时候，MediaPlayer播放不及时。
 3. 扫码界面未增加闪光灯及连接扫描按钮。
 4. 扫码框没有美化，例如增加四个角等等。
-
-有问题欢迎交流：QQ 2227421573
 
   [1]: https://raw.githubusercontent.com/XieZhiFa/ZxingZbar/master/images/pom_1.jpg
   [2]: https://raw.githubusercontent.com/XieZhiFa/ZxingZbar/master/images/pom_2.png
