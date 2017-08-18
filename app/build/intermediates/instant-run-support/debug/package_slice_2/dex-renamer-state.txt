@@ -1,4 +1,0 @@
-#Fri Aug 18 10:44:47 CST 2017
-base.0=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_2
-renamed.0=classes.dex
-file.0=E\:\\workspaces-studio\\zxing-master\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_2\\classes.dex
