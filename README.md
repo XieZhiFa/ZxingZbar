@@ -92,7 +92,7 @@ data = rotatedData;
 
 **解码速度的优化从decode方法着手**
 ## （三）编译Zbar ##
-1. [Zbar主页][5] 点开android提示需要依赖libiconv这个库  http://www.gnu.org/software/libiconv于是百度半天后参考了别人的贴子，下载了 libiconv-1.15库，然后Zbar与libiconv一起编译。
+1. [Zbar主页][5] 点开android提示需要依赖libiconv这个库  http://www.gnu.org/software/libiconv 于是百度半天后参考了别人的贴子，下载了 libiconv-1.15库，然后Zbar与libiconv一起编译。
 2. 将Zbar-master目录下的 include zbar 及下载的 libiconv-1.15 一起复制到jni目录，这个jni目录可以随意在任何地方新建一文件夹，只要叫jni即可。
 3. 将zbar-master/android/jni目录下的 三个文件Android.mk、Application.mk config.h 复制到 jni目录下。
 4. 将Zbar-master/java/zbarjni.c也复制到jni目录下。
@@ -104,64 +104,63 @@ data = rotatedData;
 
 **zbar的解码代码为：**
 
-> 
-byte[] imageData = ...; //相机捕获的数据或图片数据
-Image barcode = new Image(size.width, size.height, "Y800");
-barcode.setData(imageData);
-// 指定二维码在图片中的区域，也可以不指定，识别全图。
-// barcode.setCrop(startX, startY, width, height);
-String qrCodeString = null;
-int result = mImageScanner.scanImage(barcode);
-if (result != 0) {
+    byte[] imageData = ...; //相机捕获的数据或图片数据
+    Image barcode = new Image(size.width, size.height, "Y800");
+    barcode.setData(imageData);
+    // 指定二维码在图片中的区域，也可以不指定，识别全图。
+    // barcode.setCrop(startX, startY, width, height);
+    String qrCodeString = null;
+    int result = mImageScanner.scanImage(barcode);
+    if (result != 0) {
     SymbolSet symSet = mImageScanner.getResults();
     for (Symbol sym : symSet)
         qrCodeString = sym.getData();
-}
-if (!TextUtils.isEmpty(qrCodeString)) {
-    // 成功识别二维码，qrCodeString就是数据。
-}
+    }
+    if (!TextUtils.isEmpty(qrCodeString)) {
+     // 成功识别二维码，qrCodeString就是数据。
+    }
 
 
 
 ## （四）Zxing与Zbar的整合 ##
 1. 知道zbar的解码过程以后就好办了， 直接到zxing的 DecodeHandler.java decode（）方法中增加代码:
 
-
-> 
-Image barcode = new Image(width, height, "Y800");
-barcode.setData(data);
-Rect rect = activity.getCameraManager().getFramingRectInPreview();
-if (rect != null) {
-                /*
-                    zbar 解码库,不需要将数据进行旋转,因此设置裁剪区域是的x为 top, y为left
-                    设置了裁剪区域,解码速度快了近5倍左右
-                 */
-                barcode.setCrop(rect.top, rect.left, rect.width(), rect.height());    // 设置截取区域，也就是你的扫描框在图片上的区域.
-}
-ImageScanner mImageScanner = new ImageScanner();
-int result = mImageScanner.scanImage(barcode);
-if (result != 0) {
-    SymbolSet symSet = mImageScanner.getResults();
-        for (Symbol sym : symSet)
-            resultQRcode = sym.getData();
-}
+    Image barcode = new Image(width, height, "Y800");
+    barcode.setData(data);
+    Rect rect = activity.getCameraManager().getFramingRectInPreview();
+    if (rect != null) {
+                    /*
+                        zbar 解码库,不需要将数据进行旋转,因此设置裁剪区域是的x为 top, y为left
+                        设置了裁剪区域,解码速度快了近5倍左右
+                     */
+                    barcode.setCrop(rect.top, rect.left, rect.width(), rect.height());    // 设置截取区域，也就是你的扫描框在图片上的区域.
+    }
+    ImageScanner mImageScanner = new ImageScanner();
+    int result = mImageScanner.scanImage(barcode);
+    if (result != 0) {
+        SymbolSet symSet = mImageScanner.getResults();
+            for (Symbol sym : symSet)
+                resultQRcode = sym.getData();
+    }
 
 
 2. 但是本人还是想保留zxing本身的解码能力，例如PDF417 zbar并不支持。
 
 3. 持续优化decode，根据decode日志，发现数组的转换大概花了 600ms (测试机 RedMI 3)因此本人用c语言写了个数组转换的方法，编译成so库，发现调用c代码进行数组的转换，只需要30ms左右，快了接近20倍。具体代码在DecodeHandlerJni.c 文件中。
-4. 在 PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(data, width, height); 这行代码前面增加：
-data = DecodeHandlerJni.dataHandler(data, data.length, width, height);
-int tmp = width;
-width = height;
-height = tmp;
-那么现在竖屏状态下的解码速度提升了一倍以上了。
+4. 在 PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(data, width, height); 
+
+    这行代码前面增加：
+    data = DecodeHandlerJni.dataHandler(data, data.length, width, height);
+    int tmp = width;
+    width = height;
+    height = tmp;
+    那么现在竖屏状态下的解码速度提升了一倍以上了。
 
 为了兼容zxing与zbar 本人在设置界面增加了一个选择![此处输入图片的描述][6]
 
 兼容模式就是用Zxing来解码， 而高速模式是用Zbar来解码。
 
-**已知几个问题: ** 
+**已知几个问题:** 
 1. 连接扫描的时候，需要使用广播进行。
 2. 扫码后播放声音默认是使用MediaPlayer，建议使用SoundPool， 因为连续扫码过快的时候，MediaPlayer播放不及时。
 3. 扫码界面未增加闪光灯及连接扫描按钮。
