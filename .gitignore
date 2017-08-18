@@ -1,9 +1,9 @@
 ﻿.git/
 .gradle/
-./idea
+.idea/
 build/
 gradle/
 app/build
-*.iml
 local.properties
+*.iml
 
