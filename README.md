@@ -6,5 +6,5 @@ QQ 2227421573
 讲述了编译最新Zxing 及 Zbar 的过程及优级化改动的地方。
 
 
-## 这个项目已废弃不维护了
-Google出了基于人工智能的条码/二维码扫描. ml-kit barcode-scanning
+## Zxing、Zbar已过时
+条码/二维码扫描 请体验： barcode-scanning-debug-1-1.0.apk
